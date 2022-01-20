@@ -1,0 +1,57 @@
+
+.number-field {
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-items: center;
+  align-content: center;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  box-sizing: border-box;
+  padding: 0.25em 0.5em;
+  margin: 0;
+
+  background-color: rgba(44, 52, 40, 0.17);
+
+  &.number-field-is-invalid {
+    background-color: rgba(52, 40, 46, 0.17);
+  }
+
+
+  & > .number-field-label-container {
+
+    flex: 1 0 50%;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    text-align: right;
+
+    & > .number-field-label {
+      padding: 0;
+      margin: 1em;
+      text-align: right;
+    }
+
+  }
+
+  & > .number-field-input-container {
+
+    flex: 1 0 50%;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+
+    & > input {
+      border: 0;
+      outline: 0;
+      box-sizing: border-box;
+      padding: 1em;
+      margin: 0;
+    }
+
+  }
+
+}
