@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "https://hangovergames.github.io/laskurit/static/css/main.956c99a0.css",
-    "main.js": "https://hangovergames.github.io/laskurit/static/js/main.2a126fec.js",
+    "main.js": "https://hangovergames.github.io/laskurit/static/js/main.723feba5.js",
     "static/js/787.5d2193b3.chunk.js": "https://hangovergames.github.io/laskurit/static/js/787.5d2193b3.chunk.js",
     "index.html": "https://hangovergames.github.io/laskurit/index.html",
     "main.956c99a0.css.map": "https://hangovergames.github.io/laskurit/static/css/main.956c99a0.css.map",
-    "main.2a126fec.js.map": "https://hangovergames.github.io/laskurit/static/js/main.2a126fec.js.map",
+    "main.723feba5.js.map": "https://hangovergames.github.io/laskurit/static/js/main.723feba5.js.map",
     "787.5d2193b3.chunk.js.map": "https://hangovergames.github.io/laskurit/static/js/787.5d2193b3.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.956c99a0.css",
-    "static/js/main.2a126fec.js"
+    "static/js/main.723feba5.js"
   ]
 }

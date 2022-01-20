@@ -20,21 +20,26 @@ export function OsakeKauppaLaskuriView (props: OsakeKauppaViewProps) {
 
     const className = props?.className;
 
-    const currentYear = (new Date()).getFullYear();
+    const varainSiirtoVeroProsentti = 0.016;
 
     const [ kauppaSumma, setKauppaSumma ] = useState<number|undefined>(1000);
+    const [ valitysPalkkio, setValitysPalkkio ] = useState<number|undefined>(undefined);
     const [ hankintaHinta, setHankintaHinta ] = useState<number|undefined>(0);
+    const hankintaHintaValue = hankintaHinta ?? 0;
+    const [ hankintaVarainsiirtoVero, setHankintaVarainsiirtoVero ] = useState<number|undefined>(undefined);
 
     const kauppaSummaValue   = kauppaSumma ?? 0;
-    const hankintaHintaValue = hankintaHinta ?? 0;
 
+    const [ ostinOsakkeet , setOstinOsakkeet] = useState<boolean>(false);
     const [ yli10Years , setYli10Years] = useState<boolean>(false);
 
     const hankintaHintaOlettamaOsuus = yli10Years ? 0.40 : 0.20;
 
     const hankintaHintaOlettama = (kauppaSumma ?? 0) * hankintaHintaOlettamaOsuus;
 
-    const veroVahennys = hankintaHintaOlettama > hankintaHintaValue ? hankintaHintaOlettama : hankintaHintaValue;
+    const hankintaKulut = ostinOsakkeet ? hankintaHintaValue + (hankintaVarainsiirtoVero ?? 0) + (valitysPalkkio ?? 0) : hankintaHintaValue;
+
+    const veroVahennys = hankintaHintaOlettama > hankintaKulut ? hankintaHintaOlettama : hankintaKulut;
 
     const verotettavaSumma = kauppaSummaValue >= veroVahennys ? kauppaSummaValue - veroVahennys : 0;
 
@@ -49,7 +54,7 @@ export function OsakeKauppaLaskuriView (props: OsakeKauppaViewProps) {
 
     const kauppaSummaNetto = kauppaSummaValue - veronSumma;
 
-    const varainSiirtoVero = kauppaSummaValue * 0.016;
+    const varainSiirtoVero = kauppaSummaValue * varainSiirtoVeroProsentti;
 
     const handleSubmit = useCallback(
         (event : FormEvent<HTMLFormElement>) => {
@@ -77,16 +82,51 @@ export function OsakeKauppaLaskuriView (props: OsakeKauppaViewProps) {
 
             <form onSubmit={handleSubmit}>
 
+                <label className={"checkbox-field"}>
+                    <input
+                        type={"checkbox"}
+                        checked={ostinOsakkeet}
+                        onChange={(event) => {setOstinOsakkeet(!ostinOsakkeet)}}
+                    />
+                    Osakkeet on hankittu ostamalla
+                </label>
+
+                {ostinOsakkeet? (
+                    <>
+
+                        <NumberField
+                            label={"Hankintahinta"}
+                            value={hankintaHinta}
+                            setValue={(value) => setHankintaHinta(value)}
+                        />
+
+                        <NumberField
+                            label={"Hankinnan varainsiirtovero"}
+                            value={hankintaVarainsiirtoVero}
+                            setValue={(value) => setHankintaVarainsiirtoVero(value)}
+                        />
+
+                        <NumberField
+                            label={"Hankinnan välityspalkkio"}
+                            value={valitysPalkkio}
+                            setValue={(value) => setValitysPalkkio(value)}
+                        />
+
+                    </>
+                ) : (
+                    <>
+                        <NumberField
+                            label={"Osakepääoma perustaessa"}
+                            value={hankintaHinta}
+                            setValue={(value) => setHankintaHinta(value)}
+                        />
+                    </>
+                )}
+
                 <NumberField
                     label={"Kauppahinta"}
                     value={kauppaSumma}
                     setValue={(value) => setKauppaSumma(value)}
-                />
-
-                <NumberField
-                    label={"Hankintahinta"}
-                    value={hankintaHinta}
-                    setValue={(value) => setHankintaHinta(value)}
                 />
 
                 <label className={"checkbox-field"}>
@@ -112,12 +152,12 @@ export function OsakeKauppaLaskuriView (props: OsakeKauppaViewProps) {
 
                 <h3>Myyjän osuus</h3>
 
-                <div className={"row"}><div className={"label"}>Kauppahinta</div><div className={"value"}>{formatNumber(kauppaSummaValue)} €</div></div>
+                <div className={"row"}><div className={"label"}>Kauppahinta (brutto)</div><div className={"value"}>{formatNumber(kauppaSummaValue)} €</div></div>
                 <div className={"row"}><div className={"label"}>Hankintameno-olettama</div><div className={"value"}>{formatNumber(hankintaHintaOlettama)} € ({hankintaHintaOlettamaOsuus*100} %)</div></div>
                 <div className={"row"}><div className={"label"}>Vähennyskelpoinen osuus</div><div className={"value"}>{formatNumber(veroVahennys)} €</div></div>
-                <div className={"row"}><div className={"label"}>Verotettava myyntivoitto yhteensä</div><div className={"value"}>{formatNumber(verotettavaSumma)} €</div></div>
-                <div className={"row"}><div className={"label"}>Verotettava myyntivoitto (30%)</div><div className={"value"}>{formatNumber(ali30kSumma)} € ({formatNumber(vero30pSumma)} €)</div></div>
-                <div className={"row"}><div className={"label"}>Verotettava myyntivoitto (34%)</div><div className={"value"}>{formatNumber(yli30kSumma)} € ({formatNumber(vero34pSumma)} €)</div></div>
+                <div className={"row"}><div className={"label"}>Verotettava luovutusvoitto yhteensä</div><div className={"value"}>{formatNumber(verotettavaSumma)} €</div></div>
+                <div className={"row"}><div className={"label"}>Verotettava luovutusvoitto (30%)</div><div className={"value"}>{formatNumber(ali30kSumma)} € ({formatNumber(vero30pSumma)} €)</div></div>
+                <div className={"row"}><div className={"label"}>Verotettava luovutusvoitto (34%)</div><div className={"value"}>{formatNumber(yli30kSumma)} € ({formatNumber(vero34pSumma)} €)</div></div>
                 <div className={"row"}><div className={"label"}>Veron määrä yhteensä</div><div className={"value"}>{formatNumber(veronSumma)} €</div></div>
                 <div className={"row"}><div className={"label"}>Kauppahinta (netto)</div><div className={"value"}>{formatNumber(kauppaSummaNetto)} €</div></div>
 
