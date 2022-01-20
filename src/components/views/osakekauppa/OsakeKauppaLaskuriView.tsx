@@ -99,7 +99,15 @@ export function OsakeKauppaLaskuriView (props: OsakeKauppaViewProps) {
                 <div className={"row"}><div className={"label"}>Veron määrä yhteensä</div><div className={"value"}>{formatNumber(veronSumma)} €</div></div>
                 <div className={"row"}><div className={"label"}>Kauppahinta (netto)</div><div className={"value"}>{formatNumber(kauppaSummaNetto)} €</div></div>
 
+                <p>Tämä laskuri on tarkoitettu ainoastaan luonnollisen henkilön tekemiin osakekauppoihin.</p>
+                <p>Tarkista laskelma aina ammattilaisella. Emme ota vastuuta laskelman tuloksista.</p>
+
             </article>
+
+            <footer>
+                &copy; 2022 <a href={"https://heusalagroup.fi"}>Heusala Group Oy</a>
+                &nbsp;| Lähdekoodi: <a href={"https://github.com/hangovergames/laskurit"}>Github</a>
+            </footer>
 
         </div>
     );
