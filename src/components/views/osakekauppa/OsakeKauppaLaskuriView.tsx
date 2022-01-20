@@ -23,17 +23,14 @@ export function OsakeKauppaLaskuriView (props: OsakeKauppaViewProps) {
     const currentYear = (new Date()).getFullYear();
 
     const [ kauppaSumma, setKauppaSumma ] = useState<number|undefined>(1000);
-    const [ kauppaVuosi, setKauppaVuosi ] = useState<number|undefined>(currentYear);
     const [ hankintaHinta, setHankintaHinta ] = useState<number|undefined>(0);
-    const [ hankintaVuosi, setHankintaVuosi ] = useState<number|undefined>(undefined);
 
     const kauppaSummaValue   = kauppaSumma ?? 0;
     const hankintaHintaValue = hankintaHinta ?? 0;
-    const kauppaVuosiValue   = kauppaVuosi ? kauppaVuosi : currentYear;
 
-    const years = hankintaVuosi && kauppaVuosiValue > hankintaVuosi ? kauppaVuosiValue - hankintaVuosi : 0;
+    const [ yli10Years , setYli10Years] = useState<boolean>(false);
 
-    const hankintaHintaOlettamaOsuus = years >= 10 ? 0.40 : 0.20;
+    const hankintaHintaOlettamaOsuus = yli10Years ? 0.40 : 0.20;
 
     const hankintaHintaOlettama = (kauppaSumma ?? 0) * hankintaHintaOlettamaOsuus;
 
@@ -51,6 +48,8 @@ export function OsakeKauppaLaskuriView (props: OsakeKauppaViewProps) {
     const veronSumma = vero30pSumma + vero34pSumma;
 
     const kauppaSummaNetto = kauppaSummaValue - veronSumma;
+
+    const varainSiirtoVero = kauppaSummaValue * 0.016;
 
     const handleSubmit = useCallback(
         (event : FormEvent<HTMLFormElement>) => {
@@ -79,12 +78,6 @@ export function OsakeKauppaLaskuriView (props: OsakeKauppaViewProps) {
             <form onSubmit={handleSubmit}>
 
                 <NumberField
-                    label={"Kauppavuosi"}
-                    value={kauppaVuosi}
-                    setValue={(value) => setKauppaVuosi(value)}
-                />
-
-                <NumberField
                     label={"Kauppahinta"}
                     value={kauppaSumma}
                     setValue={(value) => setKauppaSumma(value)}
@@ -96,11 +89,14 @@ export function OsakeKauppaLaskuriView (props: OsakeKauppaViewProps) {
                     setValue={(value) => setHankintaHinta(value)}
                 />
 
-                <NumberField
-                    label={"Hankintavuosi"}
-                    value={hankintaVuosi}
-                    setValue={(value) => setHankintaVuosi(value)}
-                />
+                <label className={"checkbox-field"}>
+                    <input
+                        type={"checkbox"}
+                        checked={yli10Years}
+                        onChange={(event) => {setYli10Years(!yli10Years)}}
+                    />
+                    Olen omistanut osakkeet yli 10 vuotta
+                </label>
 
                 <br />
                 <br />
@@ -109,7 +105,12 @@ export function OsakeKauppaLaskuriView (props: OsakeKauppaViewProps) {
 
             </form>
 
+            <p>Tämä laskuri on tarkoitettu ainoastaan luonnollisen henkilön tekemiin osakekauppoihin.</p>
+            <p>Tarkista laskelma aina ammattilaisella. <strong>Emme ota vastuuta laskelman tuloksista!</strong></p>
+
             <article className={OSAKE_KAUPPA_LASKURI_VIEW_CLASS_NAME+'-results'}>
+
+                <h3>Myyjän osuus</h3>
 
                 <div className={"row"}><div className={"label"}>Kauppahinta</div><div className={"value"}>{formatNumber(kauppaSummaValue)} €</div></div>
                 <div className={"row"}><div className={"label"}>Hankintameno-olettama</div><div className={"value"}>{formatNumber(hankintaHintaOlettama)} € ({hankintaHintaOlettamaOsuus*100} %)</div></div>
@@ -120,8 +121,11 @@ export function OsakeKauppaLaskuriView (props: OsakeKauppaViewProps) {
                 <div className={"row"}><div className={"label"}>Veron määrä yhteensä</div><div className={"value"}>{formatNumber(veronSumma)} €</div></div>
                 <div className={"row"}><div className={"label"}>Kauppahinta (netto)</div><div className={"value"}>{formatNumber(kauppaSummaNetto)} €</div></div>
 
-                <p>Tämä laskuri on tarkoitettu ainoastaan luonnollisen henkilön tekemiin osakekauppoihin.</p>
-                <p>Tarkista laskelma aina ammattilaisella. Emme ota vastuuta laskelman tuloksista.</p>
+                <p>Hankintameno-olettama on 40%, jos olet omistanut osakkeet yli 10 vuotta. Tarkista tarkka omistusaika!</p>
+
+                <h3>Ostajan osuus</h3>
+
+                <div className={"row"}><div className={"label"}>Varainsiirtovero</div><div className={"value"}>{formatNumber(varainSiirtoVero)} € (1.6 %)</div></div>
 
             </article>
 
