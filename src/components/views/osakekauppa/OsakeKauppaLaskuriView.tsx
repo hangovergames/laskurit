@@ -20,13 +20,22 @@ export function OsakeKauppaLaskuriView (props: OsakeKauppaViewProps) {
 
     const className = props?.className;
 
+    const currentYear = (new Date()).getFullYear();
+
     const [ kauppaSumma, setKauppaSumma ] = useState<number|undefined>(1000);
+    const [ kauppaVuosi, setKauppaVuosi ] = useState<number|undefined>(currentYear);
     const [ hankintaHinta, setHankintaHinta ] = useState<number|undefined>(0);
+    const [ hankintaVuosi, setHankintaVuosi ] = useState<number|undefined>(undefined);
 
-    const kauppaSummaValue = kauppaSumma ?? 0;
+    const kauppaSummaValue   = kauppaSumma ?? 0;
     const hankintaHintaValue = hankintaHinta ?? 0;
+    const kauppaVuosiValue   = kauppaVuosi ? kauppaVuosi : currentYear;
 
-    const hankintaHintaOlettama = (kauppaSumma ?? 0) * 0.20;
+    const years = hankintaVuosi && kauppaVuosiValue > hankintaVuosi ? kauppaVuosiValue - hankintaVuosi : 0;
+
+    const hankintaHintaOlettamaOsuus = years >= 10 ? 0.40 : 0.20;
+
+    const hankintaHintaOlettama = (kauppaSumma ?? 0) * hankintaHintaOlettamaOsuus;
 
     const veroVahennys = hankintaHintaOlettama > hankintaHintaValue ? hankintaHintaOlettama : hankintaHintaValue;
 
@@ -70,7 +79,13 @@ export function OsakeKauppaLaskuriView (props: OsakeKauppaViewProps) {
             <form onSubmit={handleSubmit}>
 
                 <NumberField
-                    label={"Osakekaupan hinta"}
+                    label={"Kauppavuosi"}
+                    value={kauppaVuosi}
+                    setValue={(value) => setKauppaVuosi(value)}
+                />
+
+                <NumberField
+                    label={"Kauppahinta"}
                     value={kauppaSumma}
                     setValue={(value) => setKauppaSumma(value)}
                 />
@@ -79,6 +94,12 @@ export function OsakeKauppaLaskuriView (props: OsakeKauppaViewProps) {
                     label={"Hankintahinta"}
                     value={hankintaHinta}
                     setValue={(value) => setHankintaHinta(value)}
+                />
+
+                <NumberField
+                    label={"Hankintavuosi"}
+                    value={hankintaVuosi}
+                    setValue={(value) => setHankintaVuosi(value)}
                 />
 
                 <br />
@@ -91,7 +112,7 @@ export function OsakeKauppaLaskuriView (props: OsakeKauppaViewProps) {
             <article className={OSAKE_KAUPPA_LASKURI_VIEW_CLASS_NAME+'-results'}>
 
                 <div className={"row"}><div className={"label"}>Kauppahinta</div><div className={"value"}>{formatNumber(kauppaSummaValue)} €</div></div>
-                <div className={"row"}><div className={"label"}>Hankintameno-olettama</div><div className={"value"}>{formatNumber(hankintaHintaOlettama)} €</div></div>
+                <div className={"row"}><div className={"label"}>Hankintameno-olettama</div><div className={"value"}>{formatNumber(hankintaHintaOlettama)} € ({hankintaHintaOlettamaOsuus*100} %)</div></div>
                 <div className={"row"}><div className={"label"}>Vähennyskelpoinen osuus</div><div className={"value"}>{formatNumber(veroVahennys)} €</div></div>
                 <div className={"row"}><div className={"label"}>Verotettava myyntivoitto yhteensä</div><div className={"value"}>{formatNumber(verotettavaSumma)} €</div></div>
                 <div className={"row"}><div className={"label"}>Verotettava myyntivoitto (30%)</div><div className={"value"}>{formatNumber(ali30kSumma)} € ({formatNumber(vero30pSumma)} €)</div></div>
