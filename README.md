@@ -1,3 +1,7 @@
+# Osakekauppalaskuri
+
+Laskuri löytyy verkosta: https://hangovergames.github.io/laskurit/
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
