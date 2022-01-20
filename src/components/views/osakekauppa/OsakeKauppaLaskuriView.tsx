@@ -125,7 +125,9 @@ export function OsakeKauppaLaskuriView (props: OsakeKauppaViewProps) {
 
                 <h3>Ostajan osuus</h3>
 
+                <div className={"row"}><div className={"label"}>Kauppahinta</div><div className={"value"}>{formatNumber(kauppaSummaValue)} €</div></div>
                 <div className={"row"}><div className={"label"}>Varainsiirtovero</div><div className={"value"}>{formatNumber(varainSiirtoVero)} € (1.6 %)</div></div>
+                <div className={"row"}><div className={"label"}>Yhteensä</div><div className={"value"}>{formatNumber(kauppaSummaValue + varainSiirtoVero)} €</div></div>
 
             </article>
 
