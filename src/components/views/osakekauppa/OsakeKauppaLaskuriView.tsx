@@ -158,8 +158,8 @@ export function OsakeKauppaLaskuriView (props: OsakeKauppaViewProps) {
 
             </form>
 
-            <p>Tämä laskuri on tarkoitettu ainoastaan luonnollisen henkilön tekemiin osakekauppoihin.</p>
-            <p>Tarkista laskelma aina ammattilaisella. <strong>Emme ota vastuuta laskelman tuloksista!</strong></p>
+            <p><strong>Huomio!</strong> Tämä laskuri on tarkoitettu ainoastaan luonnollisen henkilön tekemiin osakekauppoihin.</p>
+            <p>Tarkista laskelma aina ammattilaisella. <strong>Emme vastaa laskelman tuloksista!</strong></p>
 
             <article className={OSAKE_KAUPPA_LASKURI_VIEW_CLASS_NAME+'-results'}>
 
@@ -182,7 +182,10 @@ export function OsakeKauppaLaskuriView (props: OsakeKauppaViewProps) {
                 <div className={"row"}><div className={"label"}>Varainsiirtovero</div><div className={"value"}>{formatNumber(result.varainSiirtoVero)} € (1.6 %)</div></div>
                 <div className={"row"}><div className={"label"}>Yhteensä</div><div className={"value"}>{formatNumber(result.kauppaSummaBrutto + result.varainSiirtoVero)} €</div></div>
 
+
             </article>
+
+            <p>Lähde: <a href={"https://www.vero.fi/syventavat-vero-ohjeet/ohje-hakusivu/48262/arvopaperien-luovutusten-verotus3/"}>Vero.fi</a></p>
 
             <footer>
                 &copy; 2022 <a href={"https://heusalagroup.fi"}>Heusala Group Oy</a>
