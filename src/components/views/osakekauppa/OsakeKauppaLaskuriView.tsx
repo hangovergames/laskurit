@@ -186,7 +186,8 @@ export function OsakeKauppaLaskuriView (props: OsakeKauppaViewProps) {
 
             <footer>
                 &copy; 2022 <a href={"https://heusalagroup.fi"}>Heusala Group Oy</a>
-                &nbsp;| Lähdekoodi: <a href={"https://github.com/hangovergames/laskurit"}>Github</a>
+                &nbsp;| <a href={"https://github.com/hangovergames/laskurit"}>Github</a>
+                &nbsp;| <a href={"https://github.com/hangovergames/laskurit/issues"}>Issues</a>
             </footer>
 
         </div>
