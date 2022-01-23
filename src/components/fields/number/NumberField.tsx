@@ -1,12 +1,17 @@
 // Copyright (c) 2022. Heusala Group Oy <info@heusalagroup.fi>. All rights reserved.
 
 import { NUMBER_FIELD_CLASS_NAME } from "../../constants/classNames";
-import { useCallback, ChangeEvent, useState } from "react";
+import { useCallback, ChangeEvent, useState, useEffect } from "react";
 import { isNumber, isSafeInteger, trim } from "../../../fi/nor/ts/modules/lodash";
 import LogService from "../../../fi/nor/ts/LogService";
 import "./NumberField.scss";
+import StringUtils from "../../../fi/nor/ts/StringUtils";
 
 const LOG = LogService.createLogger('NumberField');
+
+function formatNumber (x : number) {
+    return StringUtils.formatNumber(x, ' ', ',');
+}
 
 export interface NumberFieldProps {
     readonly className ?: string;
@@ -56,16 +61,12 @@ export function NumberField (props: NumberFieldProps) {
     const value     = props?.value;
     const setValue  = props?.setValue;
 
+    const [hasFocus, setFocus] = useState<boolean>(false);
     const [isValid, setValidity] = useState<boolean>(value !== undefined);
-    const [textValue, setTextValue] = useState<string>(`${value?? ''}`);
+    const [textValue, setTextValue] = useState<string>(value !== undefined ? formatNumber(value) : '');
 
     const onChangeCallback = useCallback(
         (event: ChangeEvent<HTMLInputElement>) => {
-
-            // if (event) {
-            //     event.stopPropagation();
-            //     event.preventDefault();
-            // }
 
             const textValue = event?.target?.value ?? '';
 
@@ -88,6 +89,20 @@ export function NumberField (props: NumberFieldProps) {
         ]
     );
 
+    useEffect( () => {
+        const newText = value !== undefined ? formatNumber(value) : '';
+        if (
+            !hasFocus && newText !== textValue
+        ) {
+            setTextValue( newText );
+        }
+    }, [
+        value,
+        hasFocus,
+        textValue,
+        setTextValue
+    ]);
+
     return (
         <label className={
             NUMBER_FIELD_CLASS_NAME
@@ -104,6 +119,8 @@ export function NumberField (props: NumberFieldProps) {
                 <input
                     type="text"
                     value={textValue}
+                    onFocus={() => setFocus(true)}
+                    onBlur={() => setFocus(false)}
                     onChange={onChangeCallback}
                 />
 
