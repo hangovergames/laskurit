@@ -158,7 +158,7 @@ export function OsakeKauppaLaskuriView (props: OsakeKauppaViewProps) {
 
             </form>
 
-            <p><strong>Huomio!</strong> Tämä laskuri on tarkoitettu ainoastaan luonnollisen henkilön tekemiin osakekauppoihin.</p>
+            <p><strong>Huomio!</strong> Tämä laskuri on tarkoitettu luonnollisen henkilön tekemiin osakekauppoihin yhden kerran yhden verovuoden aikana.</p>
             <p>Tarkista laskelma aina ammattilaisella. <strong>Emme vastaa laskelman tuloksista!</strong></p>
 
             <article className={OSAKE_KAUPPA_LASKURI_VIEW_CLASS_NAME+'-results'}>
