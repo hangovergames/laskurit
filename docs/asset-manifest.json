@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "https://laskurit.heusalagroup.fi/static/css/main.956c99a0.css",
-    "main.js": "https://laskurit.heusalagroup.fi/static/js/main.a0111b99.js",
-    "static/js/787.5d2193b3.chunk.js": "https://laskurit.heusalagroup.fi/static/js/787.5d2193b3.chunk.js",
-    "index.html": "https://laskurit.heusalagroup.fi/index.html",
-    "main.956c99a0.css.map": "https://laskurit.heusalagroup.fi/static/css/main.956c99a0.css.map",
-    "main.a0111b99.js.map": "https://laskurit.heusalagroup.fi/static/js/main.a0111b99.js.map",
-    "787.5d2193b3.chunk.js.map": "https://laskurit.heusalagroup.fi/static/js/787.5d2193b3.chunk.js.map"
+    "main.css": "/static/css/main.956c99a0.css",
+    "main.js": "/static/js/main.d57d4832.js",
+    "static/js/787.5d2193b3.chunk.js": "/static/js/787.5d2193b3.chunk.js",
+    "index.html": "/index.html",
+    "main.956c99a0.css.map": "/static/css/main.956c99a0.css.map",
+    "main.d57d4832.js.map": "/static/js/main.d57d4832.js.map",
+    "787.5d2193b3.chunk.js.map": "/static/js/787.5d2193b3.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.956c99a0.css",
-    "static/js/main.a0111b99.js"
+    "static/js/main.d57d4832.js"
   ]
 }
