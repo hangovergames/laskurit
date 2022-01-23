@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "https://hangovergames.github.io/laskurit/static/css/main.956c99a0.css",
-    "main.js": "https://hangovergames.github.io/laskurit/static/js/main.a41025d3.js",
-    "static/js/787.5d2193b3.chunk.js": "https://hangovergames.github.io/laskurit/static/js/787.5d2193b3.chunk.js",
-    "index.html": "https://hangovergames.github.io/laskurit/index.html",
-    "main.956c99a0.css.map": "https://hangovergames.github.io/laskurit/static/css/main.956c99a0.css.map",
-    "main.a41025d3.js.map": "https://hangovergames.github.io/laskurit/static/js/main.a41025d3.js.map",
-    "787.5d2193b3.chunk.js.map": "https://hangovergames.github.io/laskurit/static/js/787.5d2193b3.chunk.js.map"
+    "main.css": "https://laskurit.heusalagroup.fi/static/css/main.956c99a0.css",
+    "main.js": "https://laskurit.heusalagroup.fi/static/js/main.a0111b99.js",
+    "static/js/787.5d2193b3.chunk.js": "https://laskurit.heusalagroup.fi/static/js/787.5d2193b3.chunk.js",
+    "index.html": "https://laskurit.heusalagroup.fi/index.html",
+    "main.956c99a0.css.map": "https://laskurit.heusalagroup.fi/static/css/main.956c99a0.css.map",
+    "main.a0111b99.js.map": "https://laskurit.heusalagroup.fi/static/js/main.a0111b99.js.map",
+    "787.5d2193b3.chunk.js.map": "https://laskurit.heusalagroup.fi/static/js/787.5d2193b3.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.956c99a0.css",
-    "static/js/main.a41025d3.js"
+    "static/js/main.a0111b99.js"
   ]
 }
